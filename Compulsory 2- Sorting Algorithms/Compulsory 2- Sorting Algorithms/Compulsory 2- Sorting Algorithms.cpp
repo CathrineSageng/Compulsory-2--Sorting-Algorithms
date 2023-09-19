@@ -1,6 +1,7 @@
 #include <iostream>
 #include <chrono>
 #include <string>
+#include <vector>
 using namespace std; 
 int sizeOfTheArray;
 /// <summary>
@@ -9,29 +10,47 @@ int sizeOfTheArray;
 /// <param name="selectionSortArray">The array to be sorted</param>
 /// <param name="sizeOfTheArray">How many integer the array stores</param>
 /// <param name="currentNumber">The number each index compares to</param>
-void recursiveSelectionSort(int* selectionSortArray, int sizeOfTheArray, int currentNumber = 0)
+//void recursiveSelectionSort(int* selectionSortArray, int sizeOfTheArray, int currentNumber = 0)
+//{
+//	if (currentNumber == sizeOfTheArray-1)
+//	{
+//		return;
+//	}
+//	else
+//	{
+//		int smallestNumber = currentNumber;
+//		for (int i =  currentNumber + 1; i < sizeOfTheArray; i++)
+//		{
+//			if (selectionSortArray[i] < selectionSortArray[smallestNumber])
+//			{
+//				smallestNumber = i;
+//			}
+//		}
+//
+//		if (smallestNumber != currentNumber)
+//		{
+//			swap(selectionSortArray[smallestNumber], selectionSortArray[currentNumber]);
+//		}
+//
+//		recursiveSelectionSort(selectionSortArray, sizeOfTheArray, currentNumber + 1);
+//	}
+//}
+
+void selectionSort(int* selectionSortArray, int sizeOfTheArray)
 {
-	if (currentNumber == sizeOfTheArray-1)
+	for (int i = 0; i < sizeOfTheArray-1; i++)
 	{
-		return;
-	}
-	else
-	{
-		int smallestNumber = currentNumber;
-		for (int i =  currentNumber + 1; i < sizeOfTheArray; i++)
+		int minIndex = i;
+		for (int j = i + 1; j < sizeOfTheArray; j++)
 		{
-			if (selectionSortArray[i] < selectionSortArray[smallestNumber])
+			if (selectionSortArray[j] < selectionSortArray[minIndex])
 			{
-				smallestNumber = i;
+				minIndex = j;
 			}
 		}
-
-		if (smallestNumber != currentNumber)
-		{
-			swap(selectionSortArray[smallestNumber], selectionSortArray[currentNumber]);
+		if (minIndex != i) {
+			std::swap(selectionSortArray[i], selectionSortArray[minIndex]);
 		}
-
-		recursiveSelectionSort(selectionSortArray, sizeOfTheArray, currentNumber + 1);
 	}
 }
 
@@ -69,7 +88,7 @@ int main()
 
 	auto start_time = std::chrono::high_resolution_clock::now();
 
-	recursiveSelectionSort(selectionSortArray, sizeOfTheArray);
+	selectionSort(selectionSortArray, sizeOfTheArray);
 
 	auto end_time = std::chrono::high_resolution_clock::now();
 
