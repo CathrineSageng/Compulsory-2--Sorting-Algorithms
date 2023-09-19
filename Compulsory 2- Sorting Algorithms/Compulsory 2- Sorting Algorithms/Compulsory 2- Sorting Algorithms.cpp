@@ -1,14 +1,15 @@
 #include <iostream>
 #include <chrono>
+#include <string>
 using namespace std; 
-
+int sizeOfTheArray;
 /// <summary>
-///  This is an sorting algorithm using selection sort. 
+///  Recursive selection sort function 
 /// </summary>
-/// <param name="selectionSortArray"></param>
-/// <param name="sizeOfTheArray"></param>
-/// <param name="currentNumber"></param>
-void recursiveSelectionSort(int selectionSortArray[], int sizeOfTheArray, int currentNumber = 0)
+/// <param name="selectionSortArray">The array to be sorted</param>
+/// <param name="sizeOfTheArray">How many integer the array stores</param>
+/// <param name="currentNumber">The number each index compares to</param>
+void recursiveSelectionSort(int* selectionSortArray, int sizeOfTheArray, int currentNumber = 0)
 {
 	if (currentNumber == sizeOfTheArray-1)
 	{
@@ -39,16 +40,27 @@ void recursiveSelectionSort(int selectionSortArray[], int sizeOfTheArray, int cu
 
 int main()
 {
+	int* selectionSortArray;
 
-	int selectionSortArray[] = { 11,54,98,41,3,45,7,23,37,100,99,98,97,9,96,25,65,45,75,35,65,25,85,95};
+	cout << "Enter the size of the array you want to sort" << endl;
+	cin >> sizeOfTheArray;
 
-	int sizeOfTheArray = sizeof(selectionSortArray) / sizeof(selectionSortArray[0]);
+	selectionSortArray = new int[sizeOfTheArray];
 
 	cout << "How the numbers in the array are listed int the array before sorted: " << endl; 
 
 	for (int i = 0; i < sizeOfTheArray; i++)
 	{
-		cout << selectionSortArray[i] << " ";
+		if (selectionSortArray == nullptr)
+		{
+			std::cerr << "Memory allocation failed." << std::endl;
+			return 1;  // Exit with an error code
+		}
+		else
+		{
+			selectionSortArray[i] = (rand() % 1000);
+			cout << " " << selectionSortArray[i];
+		}
 	}
 	cout << endl;
 	cout << endl;
@@ -65,14 +77,19 @@ int main()
 
 	for (int i = 0; i < sizeOfTheArray; i++)
 	{
+		if (selectionSortArray == nullptr)
+		{
+			std::cerr << "Memory allocation failed." << std::endl;
+			return 1;  // Exit with an error code
+		}
 		cout << selectionSortArray[i] << " ";
 	}
 	cout << endl;
 	cout << endl;
 	std::cout << "Time taken: " << duration_ms.count() << " microseconds" << std::endl;
 
-	
-	system("pause>0");
+	delete[] selectionSortArray;
+	return 0;
 
 }
 
