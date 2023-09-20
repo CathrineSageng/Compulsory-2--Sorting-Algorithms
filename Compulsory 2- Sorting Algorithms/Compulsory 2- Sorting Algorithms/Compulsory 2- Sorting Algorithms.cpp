@@ -1,113 +1,106 @@
 #include <iostream>
 #include <chrono>
 #include <string>
-#include <vector>
-using namespace std; 
-int sizeOfTheArray;
-/// <summary>
-///  Recursive selection sort function 
-/// </summary>
-/// <param name="selectionSortArray">The array to be sorted</param>
-/// <param name="sizeOfTheArray">How many integer the array stores</param>
-/// <param name="currentNumber">The number each index compares to</param>
-//void recursiveSelectionSort(int* selectionSortArray, int sizeOfTheArray, int currentNumber = 0)
-//{
-//	if (currentNumber == sizeOfTheArray-1)
-//	{
-//		return;
-//	}
-//	else
-//	{
-//		int smallestNumber = currentNumber;
-//		for (int i =  currentNumber + 1; i < sizeOfTheArray; i++)
-//		{
-//			if (selectionSortArray[i] < selectionSortArray[smallestNumber])
-//			{
-//				smallestNumber = i;
-//			}
-//		}
-//
-//		if (smallestNumber != currentNumber)
-//		{
-//			swap(selectionSortArray[smallestNumber], selectionSortArray[currentNumber]);
-//		}
-//
-//		recursiveSelectionSort(selectionSortArray, sizeOfTheArray, currentNumber + 1);
-//	}
-//}
 
+using namespace std; 
+
+/// <summary>
+/// This function sorts the array from the smallest integer to the 
+/// largest integer using selection sort algorithm with for loop
+/// </summary>
+/// <param name="selectionSortArray"> The array that is beeing sorted</param>
+/// <param name="sizeOfTheArray"> How large the array is, how many elements the array contains</param>
 void selectionSort(int* selectionSortArray, int sizeOfTheArray)
 {
 	for (int i = 0; i < sizeOfTheArray-1; i++)
 	{
-		int minIndex = i;
+		int smallestIndex = i;
 		for (int j = i + 1; j < sizeOfTheArray; j++)
 		{
-			if (selectionSortArray[j] < selectionSortArray[minIndex])
+			if (selectionSortArray[j] < selectionSortArray[smallestIndex])
 			{
-				minIndex = j;
+				smallestIndex = j;
 			}
 		}
-		if (minIndex != i) {
-			std::swap(selectionSortArray[i], selectionSortArray[minIndex]);
+		if (smallestIndex != i) {
+			swap(selectionSortArray[i], selectionSortArray[smallestIndex]);
 		}
 	}
 }
 
-
-
-
-int main()
+/// <summary>
+/// This function prints out in the console window the integers in the array before sorted. 
+/// </summary>
+/// <param name="selectionSortArray"> The array that is beeing sorted </param>
+/// <param name="sizeOfTheArray"> How large the array is, how many elements the array contains </param>
+void printsOutNumbersOfTheArrayBeforeSorted(int* selectionSortArray, int sizeOfTheArray)
 {
-	int* selectionSortArray;
-
-	cout << "Enter the size of the array you want to sort" << endl;
-	cin >> sizeOfTheArray;
-
-	selectionSortArray = new int[sizeOfTheArray];
-
-	cout << "How the numbers in the array are listed int the array before sorted: " << endl; 
-
+	cout << "How the numbers in the array are listed before they are sorted: " << endl;
 	for (int i = 0; i < sizeOfTheArray; i++)
 	{
 		if (selectionSortArray == nullptr)
 		{
-			std::cerr << "Memory allocation failed." << std::endl;
-			return 1;  // Exit with an error code
+			std::cerr << "The memory allocation failed." << std::endl;
+			return;
 		}
 		else
 		{
-			selectionSortArray[i] = (rand() % 1000);
-			cout << " " << selectionSortArray[i];
+			selectionSortArray[i] = (rand() % 10000);
+			cout << selectionSortArray[i] << " ";
 		}
 	}
 	cout << endl;
 	cout << endl;
-	cout << "The numbers in the array are sorted from the smallest to the largest integer: " << endl;
-	
+}
 
-	auto start_time = std::chrono::high_resolution_clock::now();
-
-	selectionSort(selectionSortArray, sizeOfTheArray);
-
-	auto end_time = std::chrono::high_resolution_clock::now();
-
-	auto duration_ms = std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time);
-
+/// <summary>
+/// This function prints out in the console window the integers in the array after sorted. 
+/// </summary>
+/// <param name="selectionSortArray"> The array that is beeing sorted </param>
+/// <param name="sizeOfTheArray"> How large the array is, how many elements the array contains </param>
+void printsOutNumbersOfTheArrayAfterSorted(int* selectionSortArray, int sizeOfTheArray)
+{
+	cout << "Sorted array: " << endl;
 	for (int i = 0; i < sizeOfTheArray; i++)
 	{
 		if (selectionSortArray == nullptr)
 		{
-			std::cerr << "Memory allocation failed." << std::endl;
-			return 1;  // Exit with an error code
+			std::cerr << "The memory allocation failed." << std::endl;
+			return;
 		}
 		cout << selectionSortArray[i] << " ";
 	}
 	cout << endl;
 	cout << endl;
-	std::cout << "Time taken: " << duration_ms.count() << " microseconds" << std::endl;
+}
+
+int main()
+{
+	int* selectionSortArray;
+	int sizeOfTheArray;
+
+	cout << "Enter the size(how many elements) you want to sort" << endl;
+	cin >> sizeOfTheArray;
+	cout << endl;
+
+	selectionSortArray = new int[sizeOfTheArray];
+
+	printsOutNumbersOfTheArrayBeforeSorted(selectionSortArray, sizeOfTheArray);
+
+	auto startTime = chrono::high_resolution_clock::now();
+
+	selectionSort(selectionSortArray, sizeOfTheArray);
+
+	auto endTime = chrono::high_resolution_clock::now();
+
+	auto durationInMS = chrono::duration_cast<chrono::milliseconds>(endTime - startTime);
+
+	printsOutNumbersOfTheArrayAfterSorted(selectionSortArray, sizeOfTheArray);
+
+	cout << "Time taken to run the algorithm: " << durationInMS.count() << " milliseconds" << endl;
 
 	delete[] selectionSortArray;
+
 	return 0;
 
 }
