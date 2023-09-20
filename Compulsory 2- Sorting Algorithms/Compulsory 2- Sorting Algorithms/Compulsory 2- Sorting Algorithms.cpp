@@ -40,7 +40,7 @@ void printsOutNumbersOfTheArrayBeforeSorted(int* selectionSortArray, int sizeOfT
 	{
 		if (selectionSortArray == nullptr)
 		{
-			std::cerr << "The memory allocation failed." << std::endl;
+			cerr << "The memory allocation failed." << endl;
 			return;
 		}
 		else
@@ -65,7 +65,7 @@ void printsOutNumbersOfTheArrayAfterSorted(int* selectionSortArray, int sizeOfTh
 	{
 		if (selectionSortArray == nullptr)
 		{
-			std::cerr << "The memory allocation failed." << std::endl;
+			cerr << "The memory allocation failed." << endl;
 			return;
 		}
 		cout << selectionSortArray[i] << " ";
@@ -85,17 +85,12 @@ int main()
 
 	selectionSortArray = new int[sizeOfTheArray];
 
-	printsOutNumbersOfTheArrayBeforeSorted(selectionSortArray, sizeOfTheArray);
-
 	auto startTime = chrono::high_resolution_clock::now();
-
+	printsOutNumbersOfTheArrayBeforeSorted(selectionSortArray, sizeOfTheArray);
 	selectionSort(selectionSortArray, sizeOfTheArray);
-
-	auto endTime = chrono::high_resolution_clock::now();
-
-	auto durationInMS = chrono::duration_cast<chrono::milliseconds>(endTime - startTime);
-
 	printsOutNumbersOfTheArrayAfterSorted(selectionSortArray, sizeOfTheArray);
+	auto endTime = chrono::high_resolution_clock::now();
+	auto durationInMS = chrono::duration_cast<chrono::milliseconds>(endTime - startTime);
 
 	cout << "Time taken to run the algorithm: " << durationInMS.count() << " milliseconds" << endl;
 
