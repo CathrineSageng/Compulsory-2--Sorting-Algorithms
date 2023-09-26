@@ -4,6 +4,36 @@
 
 using namespace std; 
 
+void selectionSort(int* selectionSortArray, int sizeOfTheArray);
+void printsOutNumbersOfTheArrayBeforeSorted(int* selectionSortArray, int sizeOfTheArray);
+void printsOutNumbersOfTheArrayAfterSorted(int* selectionSortArray, int sizeOfTheArray);
+
+int main()
+{
+	int* selectionSortArray;
+	int sizeOfTheArray;
+
+	cout << "Enter the size(how many elements) you want to sort" << endl;
+	cin >> sizeOfTheArray;
+	cout << endl;
+
+	selectionSortArray = new int[sizeOfTheArray];
+
+	auto startTime = chrono::high_resolution_clock::now();
+	printsOutNumbersOfTheArrayBeforeSorted(selectionSortArray, sizeOfTheArray);
+	selectionSort(selectionSortArray, sizeOfTheArray);
+	printsOutNumbersOfTheArrayAfterSorted(selectionSortArray, sizeOfTheArray);
+	auto endTime = chrono::high_resolution_clock::now();
+	auto durationInMS = chrono::duration_cast<chrono::milliseconds>(endTime - startTime);
+
+	cout << "Time taken to run the algorithm: " << durationInMS.count() << " milliseconds" << endl;
+
+	delete[] selectionSortArray;
+
+	return 0;
+
+}
+
 /// <summary>
 /// This function sorts the array from the smallest integer to the 
 /// largest integer using selection sort algorithm with for loop
@@ -12,7 +42,7 @@ using namespace std;
 /// <param name="sizeOfTheArray"> How large the array is, how many elements the array contains</param>
 void selectionSort(int* selectionSortArray, int sizeOfTheArray)
 {
-	for (int i = 0; i < sizeOfTheArray-1; i++)
+	for (int i = 0; i < sizeOfTheArray - 1; i++)
 	{
 		int smallestIndex = i;
 		for (int j = i + 1; j < sizeOfTheArray; j++)
@@ -73,30 +103,3 @@ void printsOutNumbersOfTheArrayAfterSorted(int* selectionSortArray, int sizeOfTh
 	cout << endl;
 	cout << endl;
 }
-
-int main()
-{
-	int* selectionSortArray;
-	int sizeOfTheArray;
-
-	cout << "Enter the size(how many elements) you want to sort" << endl;
-	cin >> sizeOfTheArray;
-	cout << endl;
-
-	selectionSortArray = new int[sizeOfTheArray];
-
-	auto startTime = chrono::high_resolution_clock::now();
-	printsOutNumbersOfTheArrayBeforeSorted(selectionSortArray, sizeOfTheArray);
-	selectionSort(selectionSortArray, sizeOfTheArray);
-	printsOutNumbersOfTheArrayAfterSorted(selectionSortArray, sizeOfTheArray);
-	auto endTime = chrono::high_resolution_clock::now();
-	auto durationInMS = chrono::duration_cast<chrono::milliseconds>(endTime - startTime);
-
-	cout << "Time taken to run the algorithm: " << durationInMS.count() << " milliseconds" << endl;
-
-	delete[] selectionSortArray;
-
-	return 0;
-
-}
-

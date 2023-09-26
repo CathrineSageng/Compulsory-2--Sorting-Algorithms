@@ -5,6 +5,37 @@
 
 using namespace std;
 
+int quickSortPartition(int* quickSortArray, int mostLeftIndex, int mostRightIndex);
+void recursionQuickSort(int* quickSortArray, int mostLeftIndex, int mostRightIndex);
+void printsOutNumbersOfTheArrayBeforeSorted(int* quickSortArray, int sizeOfTheArray);
+void printsOutNumbersOfTheArrayAfterSorted(int* quickSortArray, int sizeOfTheArray);
+
+
+int main()
+{
+	int* quickSortArray;
+	int sizeOfTheArray;
+
+	cout << "Enter the size(how many elements) you want to sort" << endl;
+	cin >> sizeOfTheArray;
+	cout << endl;
+
+	quickSortArray = new int[sizeOfTheArray];
+	auto startTime = chrono::high_resolution_clock::now();
+
+	printsOutNumbersOfTheArrayBeforeSorted(quickSortArray,sizeOfTheArray);
+	recursionQuickSort(quickSortArray, 0, sizeOfTheArray-1);
+	printsOutNumbersOfTheArrayAfterSorted(quickSortArray, sizeOfTheArray);
+
+	auto endTime = chrono::high_resolution_clock::now();
+	auto durationInMS = chrono::duration_cast<chrono::milliseconds>(endTime - startTime);
+	cout << "Time taken to run the algorithm: " << durationInMS.count() << " milliseconds" << endl;
+
+	delete[] quickSortArray;
+
+	return 0;
+}
+
 /// <summary>
 /// This function is partitioning the array. It splits the array to sub arrays where you have numbers less than the pivot 
 /// and greater than the pivot. Chose th pivot to be the last index of the array.
@@ -13,21 +44,21 @@ using namespace std;
 /// <param name="mostLeftIndex"> This number is used to define the first index in the array </param>
 /// <param name="mostRightIndex"> This number is used ro define the last number in the array </param>
 /// <returns> returns the pivotIndex after the last index is swapped</returns>
-int quickSortPartition(int* quickSortArray, int mostLeftIndex, int mostRightIndex) 
+int quickSortPartition(int* quickSortArray, int mostLeftIndex, int mostRightIndex)
 {
 	int pivot = quickSortArray[mostRightIndex];
 	int i = mostLeftIndex - 1;
 
-	for (int j = mostLeftIndex; j <= mostRightIndex - 1; j++)  
+	for (int j = mostLeftIndex; j <= mostRightIndex - 1; j++)
 	{
-		if (quickSortArray[j] < pivot)	
+		if (quickSortArray[j] < pivot)
 		{
-			i++;					
+			i++;
 			swap(quickSortArray[i], quickSortArray[j]);
 		}
 	}
 	swap(quickSortArray[i + 1], quickSortArray[mostRightIndex]);
-	return i + 1; 
+	return i + 1;
 }
 
 /// <summary>
@@ -42,11 +73,11 @@ int quickSortPartition(int* quickSortArray, int mostLeftIndex, int mostRightInde
 /// <param name="highNumber"> This number is used ro define the last number in the array </param>
 void recursionQuickSort(int* quickSortArray, int mostLeftIndex, int mostRightIndex)
 {
-	if (mostLeftIndex < mostRightIndex) 
+	if (mostLeftIndex < mostRightIndex)
 	{
-		int pivotIndex = quickSortPartition(quickSortArray, mostLeftIndex, mostRightIndex);  
-		recursionQuickSort(quickSortArray, mostLeftIndex, pivotIndex - 1); 
-		recursionQuickSort(quickSortArray, pivotIndex + 1, mostRightIndex); 
+		int pivotIndex = quickSortPartition(quickSortArray, mostLeftIndex, mostRightIndex);
+		recursionQuickSort(quickSortArray, mostLeftIndex, pivotIndex - 1);
+		recursionQuickSort(quickSortArray, pivotIndex + 1, mostRightIndex);
 	}
 }
 
@@ -72,7 +103,7 @@ void printsOutNumbersOfTheArrayBeforeSorted(int* quickSortArray, int sizeOfTheAr
 			cout << quickSortArray[i] << " ";
 		}
 	}
-	cout << endl<< endl;
+	cout << endl << endl;
 }
 
 /// <summary>
@@ -92,30 +123,6 @@ void printsOutNumbersOfTheArrayAfterSorted(int* quickSortArray, int sizeOfTheArr
 		}
 		cout << quickSortArray[i] << " ";
 	}
-	cout << endl<< endl;
+	cout << endl << endl;
 }
-
-int main()
-{
-	int* quickSortArray;
-	int sizeOfTheArray;
-
-	cout << "Enter the size(how many elements) you want to sort" << endl;
-	cin >> sizeOfTheArray;
-	cout << endl;
-
-	quickSortArray = new int[sizeOfTheArray];
-	auto startTime = chrono::high_resolution_clock::now();
-	printsOutNumbersOfTheArrayBeforeSorted(quickSortArray,sizeOfTheArray);
-	recursionQuickSort(quickSortArray, 0, sizeOfTheArray-1);
-	printsOutNumbersOfTheArrayAfterSorted(quickSortArray, sizeOfTheArray);
-	auto endTime = chrono::high_resolution_clock::now();
-	auto durationInMS = chrono::duration_cast<chrono::milliseconds>(endTime - startTime);
-	cout << "Time taken to run the algorithm: " << durationInMS.count() << " milliseconds" << endl;
-
-	delete[] quickSortArray;
-
-	return 0;
-}
-
 
